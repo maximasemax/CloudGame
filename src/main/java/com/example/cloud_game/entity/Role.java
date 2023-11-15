@@ -1,4 +1,4 @@
-package com.example.cloudGame.DataBase;
+package com.example.cloud_game.entity;
 
 import jakarta.persistence.*;
 
@@ -15,8 +15,8 @@ public class Role {
     @Column
     private String role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<UserInfo> userInfo;
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserInfo> users;
 
 }
 

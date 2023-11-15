@@ -1,4 +1,4 @@
-package com.example.cloudGame;
+package com.example.cloud_game;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

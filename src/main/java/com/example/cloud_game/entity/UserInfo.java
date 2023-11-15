@@ -1,4 +1,4 @@
-package com.example.cloudGame.DataBase;
+package com.example.cloud_game.entity;
 
 
 import jakarta.persistence.*;
@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "USERINFO")
+@Table
 public class UserInfo {
 
     @Id
@@ -29,7 +29,10 @@ public class UserInfo {
     @Column
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ROLE_ID", unique = true, nullable = false)
-    private Role role;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }

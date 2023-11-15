@@ -1,4 +1,4 @@
-package com.example.cloudGame;
+package com.example.cloud_game;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
