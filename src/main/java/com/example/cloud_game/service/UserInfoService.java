@@ -1,7 +1,8 @@
 package com.example.cloud_game.service;
 
-import com.example.cloud_game.dto.UserInfoRequestDto;
-import com.example.cloud_game.dto.UserInfoResponseDto;
+import com.example.cloud_game.dto.user_info.UserInfoRequestDto;
+import com.example.cloud_game.dto.user_info.UserInfoResponseDto;
+import com.example.cloud_game.exception.CustomUserInfoException;
 import com.example.cloud_game.repository.UserInfoRepository;
 import com.example.cloud_game.entity.UserInfo;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,7 +31,7 @@ public class UserInfoService {
 
     public UserInfoResponseDto getUserInfo(String login,String status){
         UserInfo userInfoEntity = userInfoRepository.findByLoginAndStatus(login,status).orElseThrow(() ->
-                new EntityNotFoundException("User not found"));
+                new CustomUserInfoException("User not found"));
         return UserInfoResponseDto.builder()
                 .login(userInfoEntity.getLogin())
                 .status(userInfoEntity.getStatus())
@@ -38,14 +39,19 @@ public class UserInfoService {
                 .build();
     }
 
-    public UserInfo updateUserInfo(Long id, UserInfo userInfo) {
-        UserInfo existingUserInfo = userInfoRepository.findById(id).orElseThrow(() ->
+    public UserInfoResponseDto updateUserInfo(Long id, UserInfoRequestDto userInfo) {
+        UserInfo userInfoEntity = userInfoRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("User not found"));
-        existingUserInfo.setLogin(userInfo.getLogin());
-        existingUserInfo.setEmail(userInfo.getEmail());
-        existingUserInfo.setStatus(userInfo.getStatus());
-        existingUserInfo.setLogin(userInfo.getRoles().toString());
-        return userInfoRepository.save(existingUserInfo);
+        userInfoEntity.setLogin(userInfo.getLogin());
+        userInfoEntity.setEmail(userInfo.getEmail());
+        userInfoEntity.setStatus(userInfo.getStatus());
+        UserInfo result = userInfoRepository.save(userInfoEntity);
+
+        return UserInfoResponseDto.builder()
+                .login(result.getLogin())
+                .email(result.getEmail())
+                .status(result.getStatus())
+                .build();
     }
 
     public void deleteUserInfo(Long id) {
@@ -55,3 +61,6 @@ public class UserInfoService {
     }
 }
 
+
+//TODO сделать 404 ошибку вмсето рантайм
+//TODO Почитать про @ExceptionHandler и @ControllerAdvice

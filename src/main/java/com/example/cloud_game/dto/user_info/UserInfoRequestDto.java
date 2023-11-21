@@ -1,9 +1,13 @@
-package com.example.cloud_game.dto;
+package com.example.cloud_game.dto.user_info;
 
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
-public class UserInfoResponseDto {
+@Getter
+
+public class UserInfoRequestDto {
+
     private String login;
 
     private String email;
