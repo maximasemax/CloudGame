@@ -5,6 +5,8 @@ import com.example.cloud_game.dto.user_info.UserInfoRequestDto;
 import com.example.cloud_game.dto.user_info.UserInfoResponseDto;
 import com.example.cloud_game.service.UserInfoService;
 import com.example.cloud_game.entity.UserInfo;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,6 @@ public class UserInfoControllerImpl  implements UserInfoController {
         return userInfoService.createUserInfo(userInfoRequestDto);
     }
 
-
     @GetMapping
     public UserInfoResponseDto getUserInfo(String login, String status){
         return userInfoService.getUserInfo(login, status);
@@ -34,7 +35,6 @@ public class UserInfoControllerImpl  implements UserInfoController {
     public UserInfoResponseDto updateUserInfo(@PathVariable Long id, @RequestBody UserInfoRequestDto userInfo) {
         return userInfoService.updateUserInfo(id, userInfo) ;
     }
-
     @DeleteMapping("/{id}")
     public void deleteUserInfo(@PathVariable Long id) {
         userInfoService.deleteUserInfo(id);
