@@ -61,4 +61,6 @@ public class UserInfoService {
     }
 }
 
+
+//TODO сделать 404 ошибку вмсето рантайм
 //TODO Почитать про @ExceptionHandler и @ControllerAdvice
